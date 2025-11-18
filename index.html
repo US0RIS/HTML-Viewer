@@ -2,58 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>us0ris.github.io</title>
+<title>HTML Viewer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
   body {
     margin: 0;
-    background: #0a0a0a;
     font-family: system-ui, sans-serif;
+    background: #0e0e0e;
     color: white;
   }
   header {
-    padding: 20px;
-    font-size: 32px;
-    font-weight: 700;
     text-align: center;
+    padding: 25px 0;
+    font-size: 36px;
+    font-weight: bold;
     border-bottom: 1px solid #333;
   }
-  #projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 30px;
+  #container {
+    max-width: 900px;
+    margin: 35px auto;
+    padding: 0 20px;
   }
-  .card {
+  .item {
     background: #111;
     padding: 20px;
+    margin-bottom: 20px;
     border-radius: 12px;
     border: 1px solid #333;
     cursor: pointer;
     transition: 0.15s;
   }
-  .card:hover {
-    transform: translateY(-5px);
+  .item:hover {
     border-color: #666;
+    transform: translateY(-4px);
   }
   .title {
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 6px;
   }
   .desc {
-    font-size: 14px;
-    opacity: 0.8;
+    font-size: 15px;
+    opacity: 0.75;
   }
 </style>
+
 </head>
 
 <body>
-<header>us0ris.github.io</header>
 
-<div id="projects">
-  <div class="card" onclick="location='games/cylindrix.html'">
+<header>HTML Viewer</header>
+
+<div id="container">
+
+  <div class="item" onclick="location.href='games/cylindrix.html'">
     <div class="title">Cylindrix</div>
     <div class="desc">3D Tetris on a cylinder.</div>
   </div>
+
 </div>
 
 </body>
