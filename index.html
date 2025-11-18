@@ -1,341 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>HTML Scroll Previewer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: #020617;
-      color: #e5e7eb;
-    }
-
-    header {
-      padding: 0.75rem 1.25rem;
-      border-bottom: 1px solid #111827;
-      background: radial-gradient(circle at top left, #111827, #020617);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    header h1 {
-      margin: 0 0 0.15rem 0;
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    header p {
-      margin: 0;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-
-    .editor-section {
-      padding: 0.75rem 1.25rem 0.5rem;
-      border-bottom: 1px solid #111827;
-      background: #020617;
-    }
-
-    .editor-label-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.35rem;
-      font-size: 0.8rem;
-      color: #9ca3af;
-    }
-
-    .editor-actions {
-      display: flex;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    button {
-      border: none;
-      outline: none;
-      border-radius: 999px;
-      padding: 0.25rem 0.9rem;
-      font-size: 0.8rem;
-      background: #111827;
-      color: #e5e7eb;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-      white-space: nowrap;
-    }
-
-    button:hover {
-      background: #1f2937;
-      transform: translateY(-0.5px);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.6);
-    }
-
-    button:active {
-      transform: translateY(0.5px) scale(0.98);
-      box-shadow: 0 4px 8px rgba(15, 23, 42, 0.7);
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 240px;
-      max-height: 55vh;
-      border-radius: 0.75rem;
-      border: 1px solid #111827;
-      padding: 0.75rem 0.9rem;
-      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
-        Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.85rem;
-      line-height: 1.4;
-      background: radial-gradient(circle at top left, #020617, #020617, #020617)
-        padding-box;
-      color: #e5e7eb;
-      resize: vertical;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: #1d4ed8;
-      box-shadow: 0 0 0 1px #1d4ed8;
-    }
-
-    textarea::selection {
-      background: #1d4ed8;
-      color: #f9fafb;
-    }
-
-    .preview-heading {
-      padding: 0.75rem 1.25rem 0.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
-
-    .preview-heading h2 {
-      margin: 0;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #9ca3af;
-    }
-
-    .preview-heading span {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
-
-    .preview-container {
-      position: relative;
-      padding: 0.5rem 1.25rem 1.25rem;
-    }
-
-    .preview-frame-wrapper {
-      position: relative;
-      border-radius: 0.75rem;
-      border: 1px solid #111827;
-      overflow: hidden;
-      background: #020617;
-      min-height: 60vh;
-      max-height: 80vh;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #f9fafb;
-      display: block;
-    }
-
-    .preview-toolbar {
-      position: absolute;
-      top: 0.4rem;
-      right: 0.4rem;
-      display: flex;
-      gap: 0.3rem;
-      z-index: 5;
-    }
-
-    .preview-status {
-      position: absolute;
-      left: 0.75rem;
-      bottom: 0.55rem;
-      font-size: 0.75rem;
-      color: #9ca3af;
-      background: rgba(15, 23, 42, 0.9);
-      padding: 0.15rem 0.6rem;
-      border-radius: 999px;
-      backdrop-filter: blur(8px);
-    }
-
-    @media (max-width: 640px) {
-      header {
-        position: static;
-      }
-      .preview-frame-wrapper {
-        min-height: 55vh;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>us0ris.github.io</title>
+<style>
+  body {
+    margin: 0;
+    background: #0a0a0a;
+    font-family: system-ui, sans-serif;
+    color: white;
+  }
+  header {
+    padding: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid #333;
+  }
+  #projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+  }
+  .card {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: #666;
+  }
+  .title {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .desc {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>HTML Scroll Previewer</h1>
-    <p>Paste your HTML at the top, then scroll down to see the live preview (and pop it fullscreen).</p>
-  </header>
+<header>us0ris.github.io</header>
 
-  <section class="editor-section">
-    <div class="editor-label-row">
-      <span>HTML Source</span>
-      <div class="editor-actions">
-        <span>Ctrl+Enter to update</span>
-        <button id="runButton" title="Update preview (Ctrl+Enter)">▶ Update preview</button>
-      </div>
-    </div>
-    <textarea id="htmlInput" spellcheck="false"></textarea>
-  </section>
-
-  <section class="preview-heading">
-    <h2>Preview</h2>
-    <span>Scroll down here after pasting.</span>
-  </section>
-
-  <section class="preview-container">
-    <div class="preview-frame-wrapper" id="previewContainer">
-      <div class="preview-toolbar">
-        <button id="fullscreenButton" title="Toggle fullscreen for preview">
-          ⤢ Fullscreen
-        </button>
-      </div>
-      <iframe
-        id="previewFrame"
-        sandbox="allow-scripts allow-same-origin"
-      ></iframe>
-      <div class="preview-status" id="statusText">Ready</div>
-    </div>
-  </section>
-
-  <script>
-    const htmlInput = document.getElementById("htmlInput");
-    const previewFrame = document.getElementById("previewFrame");
-    const runButton = document.getElementById("runButton");
-    const statusText = document.getElementById("statusText");
-    const previewContainer = document.getElementById("previewContainer");
-    const fullscreenButton = document.getElementById("fullscreenButton");
-
-    const defaultHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Preview demo</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: radial-gradient(circle at top left, #0f172a, #1d4ed8);
-      color: #f9fafb;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-    }
-    .card {
-      background: rgba(15, 23, 42, 0.92);
-      border-radius: 16px;
-      padding: 24px 28px;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.7);
-      max-width: 420px;
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 1.6rem;
-    }
-    p {
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-    button {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: #f97316;
-      color: #111827;
-      font-weight: 600;
-      margin-top: 8px;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Hello from the preview!</h1>
-    <p>Paste your own HTML above, hit “Update preview”, then scroll down to see it here.</p>
-    <button onclick="alert('It works!')">Test button</button>
+<div id="projects">
+  <div class="card" onclick="location='games/cylindrix.html'">
+    <div class="title">Cylindrix</div>
+    <div class="desc">3D Tetris on a cylinder.</div>
   </div>
-</body>
-</html>`;
+</div>
 
-    function updatePreview() {
-      const code = htmlInput.value || defaultHTML;
-      previewFrame.srcdoc = code;
-      statusText.textContent = "Last updated: " + new Date().toLocaleTimeString();
-    }
-
-    // Initialize with sample HTML
-    htmlInput.value = defaultHTML;
-    updatePreview();
-
-    runButton.addEventListener("click", updatePreview);
-
-    document.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.key === "Enter") {
-        e.preventDefault();
-        updatePreview();
-        // Scroll to preview when you run it
-        previewContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
-
-    function isFullscreen() {
-      return document.fullscreenElement === previewContainer;
-    }
-
-    function updateFullscreenButton() {
-      if (isFullscreen()) {
-        fullscreenButton.textContent = "⤢ Exit fullscreen";
-      } else {
-        fullscreenButton.textContent = "⤢ Fullscreen";
-      }
-    }
-
-    fullscreenButton.addEventListener("click", () => {
-      if (!isFullscreen()) {
-        if (previewContainer.requestFullscreen) {
-          previewContainer.requestFullscreen();
-        }
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
-      }
-    });
-
-    document.addEventListener("fullscreenchange", updateFullscreenButton);
-  </script>
 </body>
 </html>
