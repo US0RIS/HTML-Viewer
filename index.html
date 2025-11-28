@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>HTML Scroll Previewer</title>
+  <title>RenderBox – HTML Preview Workspace</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
+    :root {
+      --page-bg: #050816;
+      --surface: #0b1220;
+      --surface-soft: #020617;
+      --border-subtle: #111827;
+      --border-strong: #1f2937;
+      --text-primary: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent: #fbbf24;
+      --accent-soft: rgba(251, 191, 36, 0.14);
+      --danger: #f97373;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.75);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -13,145 +30,285 @@
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: #020617;
-      color: #e5e7eb;
+      background: radial-gradient(circle at top right, #020617 0, #020617 40%, #020617 60%, #000 100%);
+      color: var(--text-primary);
     }
 
+    .page-shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 18px 32px;
+    }
+
+    /* HEADER / HERO */
     header {
-      padding: 0.75rem 1.25rem;
-      border-bottom: 1px solid #111827;
-      background: radial-gradient(circle at top left, #111827, #020617);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(to bottom, rgba(5, 8, 22, 0.96), rgba(5,8,22,0.92));
+      border-bottom: 1px solid rgba(15, 23, 42, 0.85);
     }
 
-    header h1 {
-      margin: 0 0 0.15rem 0;
-      font-size: 1.05rem;
+    .header-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 14px 18px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 20%, #facc15, #f97316 50%, #fbbf24 100%);
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.6), 0 0 40px rgba(250,204,21,0.35);
+    }
+
+    .brand-title {
+      font-size: 0.9rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    header p {
-      margin: 0;
-      font-size: 0.8rem;
-      opacity: 0.7;
+    .brand-subtitle {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      max-width: 460px;
     }
 
-    .editor-section {
-      padding: 0.75rem 1.25rem 0.5rem;
-      border-bottom: 1px solid #111827;
-      background: #020617;
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
     }
 
-    .editor-label-row {
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.85);
+      background: rgba(15,23,42,0.95);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .header-meta span code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(30,64,175,0.6);
+    }
+
+    /* LAYOUT */
+    main {
+      margin-top: 20px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .panel {
+      padding: 14px 14px 16px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 14px 40px rgba(15,23,42,0.75);
+    }
+
+    .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.35rem;
-      font-size: 0.8rem;
-      color: #9ca3af;
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
-    .editor-actions {
+    .panel-title {
       display: flex;
-      gap: 0.4rem;
-      align-items: center;
+      flex-direction: column;
+      gap: 3px;
     }
 
-    button {
-      border: none;
-      outline: none;
-      border-radius: 999px;
-      padding: 0.25rem 0.9rem;
+    .panel-title-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .panel-title-desc {
       font-size: 0.8rem;
-      background: #111827;
-      color: #e5e7eb;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      color: var(--text-muted);
+    }
+
+    .panel-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
       white-space: nowrap;
     }
 
-    button:hover {
-      background: #1f2937;
-      transform: translateY(-0.5px);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.6);
+    /* BUTTONS */
+    button {
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      background: #020617;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.14s ease, border-color 0.14s ease,
+        transform 0.08s ease, box-shadow 0.14s ease;
+      white-space: nowrap;
     }
 
-    button:active {
-      transform: translateY(0.5px) scale(0.98);
-      box-shadow: 0 4px 8px rgba(15, 23, 42, 0.7);
+    button span.icon {
+      font-size: 0.78rem;
+      opacity: 0.9;
     }
 
+    button.primary {
+      background: linear-gradient(to right, #fbbf24, #f97316);
+      color: #0b1020;
+      border-color: rgba(252, 211, 77, 0.6);
+      font-weight: 550;
+      box-shadow: 0 14px 30px rgba(248, 181, 47, 0.45);
+    }
+
+    button.primary:hover {
+      box-shadow: 0 18px 40px rgba(248, 181, 47, 0.6);
+      transform: translateY(-1px);
+    }
+
+    button.primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 10px 18px rgba(248, 181, 47, 0.5);
+    }
+
+    button.secondary {
+      background: rgba(15,23,42,0.96);
+    }
+
+    button.secondary:hover {
+      background: #020617;
+      border-color: #4b5563;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* TEXTAREA / EDITOR */
     textarea {
       width: 100%;
-      min-height: 240px;
-      max-height: 55vh;
-      border-radius: 0.75rem;
-      border: 1px solid #111827;
-      padding: 0.75rem 0.9rem;
+      min-height: 280px;
+      max-height: 58vh;
+      margin-top: 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 11px 12px;
       font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
         Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.85rem;
-      line-height: 1.4;
-      background: radial-gradient(circle at top left, #020617, #020617, #020617)
-        padding-box;
-      color: #e5e7eb;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      background: #020617;
+      color: var(--text-primary);
       resize: vertical;
+    }
+
+    textarea:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
       outline: none;
     }
 
-    textarea:focus {
-      border-color: #1d4ed8;
-      box-shadow: 0 0 0 1px #1d4ed8;
-    }
-
-    textarea::selection {
-      background: #1d4ed8;
-      color: #f9fafb;
-    }
-
-    .preview-heading {
-      padding: 0.75rem 1.25rem 0.25rem;
+    .editor-footer {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 0.5rem;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      gap: 8px;
     }
 
-    .preview-heading h2 {
-      margin: 0;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      border-radius: 6px;
+      padding: 2px 5px;
+      border: 1px solid #111827;
+      background: #020617;
+      color: #e5e7eb;
+    }
+
+    /* PREVIEW */
+    .preview-heading-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .preview-heading-top span.label {
       text-transform: uppercase;
-      color: #9ca3af;
-    }
-
-    .preview-heading span {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
-
-    .preview-container {
-      position: relative;
-      padding: 0.5rem 1.25rem 1.25rem;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      font-size: 0.78rem;
     }
 
     .preview-frame-wrapper {
       position: relative;
-      border-radius: 0.75rem;
-      border: 1px solid #111827;
-      overflow: hidden;
+      margin-top: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
       background: #020617;
-      min-height: 60vh;
-      max-height: 80vh;
+      overflow: hidden;
+      height: 70vh;
     }
 
     iframe {
@@ -164,77 +321,188 @@
 
     .preview-toolbar {
       position: absolute;
-      top: 0.4rem;
-      right: 0.4rem;
+      top: 8px;
+      right: 8px;
       display: flex;
-      gap: 0.3rem;
+      gap: 6px;
       z-index: 5;
     }
 
-    .preview-status {
+    .preview-status-bar {
       position: absolute;
-      left: 0.75rem;
-      bottom: 0.55rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 11px;
       font-size: 0.75rem;
-      color: #9ca3af;
-      background: rgba(15, 23, 42, 0.9);
-      padding: 0.15rem 0.6rem;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.98);
+      border-top: 1px solid #020617;
+    }
+
+    .status-left,
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
       border-radius: 999px;
-      backdrop-filter: blur(8px);
+      border: 1px solid #1f2937;
+      background: #020617;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .status-text-strong {
+      color: #d1d5db;
+    }
+
+    .timestamp {
+      font-variant-numeric: tabular-nums;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid #111827;
+      background: #020617;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .panel {
+        box-shadow: 0 14px 30px rgba(15,23,42,0.6);
+      }
     }
 
     @media (max-width: 640px) {
-      header {
-        position: static;
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-inline: 16px;
+      }
+      .header-meta {
+        align-items: flex-start;
+      }
+      .page-shell {
+        padding-inline: 14px;
       }
       .preview-frame-wrapper {
-        min-height: 55vh;
+        height: 60vh;
       }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <h1>HTML Scroll Previewer</h1>
-    <p>Paste your HTML at the top, then scroll down to see the live preview (and pop it fullscreen).</p>
-  </header>
-
-  <section class="editor-section">
-    <div class="editor-label-row">
-      <span>HTML Source</span>
-      <div class="editor-actions">
-        <span>Ctrl+Enter to update</span>
-        <button id="runButton" title="Update preview (Ctrl+Enter)">▶ Update preview</button>
+  <div class="page-shell">
+    <header>
+      <div class="header-inner">
+        <div class="brand-group">
+          <div class="brand-row">
+            <div class="brand-mark" aria-hidden="true"></div>
+            <div class="brand-title">RenderBox</div>
+          </div>
+          <div class="brand-subtitle">
+            A focused workspace for rendering standalone HTML in an isolated frame. Paste, iterate, and inspect without leaving your browser.
+          </div>
+        </div>
+        <div class="header-meta">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>Live HTML Preview</span>
+          </div>
+          <span>Update with <code>Ctrl+Enter</code> · Fullscreen frame supported</span>
+        </div>
       </div>
-    </div>
-    <textarea id="htmlInput" spellcheck="false"></textarea>
-  </section>
+    </header>
 
-  <section class="preview-heading">
-    <h2>Preview</h2>
-    <span>Scroll down here after pasting.</span>
-  </section>
+    <main>
+      <section class="layout" aria-label="Editor and preview layout">
+        <!-- EDITOR PANEL -->
+        <section class="panel" aria-label="HTML editor">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="panel-title-label">Source</span>
+              <span class="panel-title-desc">Paste or type your standalone HTML document.</span>
+            </div>
+            <button id="runButton" type="button" class="primary">
+              <span class="icon">▶</span>
+              Update preview
+            </button>
+          </div>
 
-  <section class="preview-container">
-    <div class="preview-frame-wrapper" id="previewContainer">
-      <div class="preview-toolbar">
-        <button id="fullscreenButton" title="Toggle fullscreen for preview">
-          ⤢ Fullscreen
-        </button>
-      </div>
-      <iframe
-        id="previewFrame"
-        sandbox="allow-scripts allow-same-origin"
-      ></iframe>
-      <div class="preview-status" id="statusText">Ready</div>
-    </div>
-  </section>
+          <textarea id="htmlInput" spellcheck="false"></textarea>
+
+          <div class="editor-footer">
+            <span>
+              Keyboard: <span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> to run
+            </span>
+            <span style="opacity: 0.85;">Sandbox: <span class="kbd">allow-scripts</span>, <span class="kbd">allow-same-origin</span></span>
+          </div>
+        </section>
+
+        <!-- PREVIEW PANEL -->
+        <section class="panel" aria-label="Preview">
+          <div class="preview-heading-top">
+            <div>
+              <span class="label">Output</span>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 3px;">
+                Your rendered HTML in an independent, scrollable frame.
+              </div>
+            </div>
+            <button id="fullscreenButton" type="button" class="secondary">
+              <span class="icon">⤢</span>
+              Fullscreen
+            </button>
+          </div>
+
+          <div class="preview-frame-wrapper" id="previewContainer">
+            <div class="preview-toolbar">
+              <!-- Future toolbar actions could go here -->
+            </div>
+
+            <iframe
+              id="previewFrame"
+              sandbox="allow-scripts allow-same-origin"
+            ></iframe>
+
+            <div class="preview-status-bar">
+              <div class="status-left">
+                <div class="status-pill">
+                  <span class="status-dot"></span>
+                  <span class="status-text-strong" id="statusText">Ready</span>
+                </div>
+              </div>
+              <div class="status-right">
+                <span class="timestamp" id="timeStamp">—</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
 
   <script>
     const htmlInput = document.getElementById("htmlInput");
     const previewFrame = document.getElementById("previewFrame");
     const runButton = document.getElementById("runButton");
     const statusText = document.getElementById("statusText");
+    const timeStamp = document.getElementById("timeStamp");
     const previewContainer = document.getElementById("previewContainer");
     const fullscreenButton = document.getElementById("fullscreenButton");
 
@@ -242,61 +510,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Preview demo</title>
+  <title>RenderBox Preview</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: system-ui, sans-serif;
-      background: radial-gradient(circle at top left, #0f172a, #1d4ed8);
-      color: #f9fafb;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      color: #0f172a;
     }
-    .card {
-      background: rgba(15, 23, 42, 0.92);
-      border-radius: 16px;
-      padding: 24px 28px;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.7);
-      max-width: 420px;
+    .shell {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px 24px 28px;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.12);
     }
     h1 {
-      margin-top: 0;
-      font-size: 1.6rem;
+      margin: 0 0 6px;
+      font-size: 1.45rem;
     }
     p {
-      opacity: 0.9;
-      line-height: 1.5;
+      margin: 0 0 10px;
+      color: #4b5563;
+      line-height: 1.55;
     }
-    button {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: #f97316;
-      color: #111827;
-      font-weight: 600;
-      margin-top: 8px;
+    .meta {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.84rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #f3f4f6;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Hello from the preview!</h1>
-    <p>Paste your own HTML above, hit “Update preview”, then scroll down to see it here.</p>
-    <button onclick="alert('It works!')">Test button</button>
-  </div>
+  <main class="shell">
+    <h1>RenderBox is ready.</h1>
+    <p>This is a standalone HTML document rendered inside the output frame.</p>
+    <p>Use the editor panel to iterate on your layout, components, and content, then refresh the output to see changes instantly.</p>
+    <p class="meta">Tip: start from a complete <code>&lt;!DOCTYPE html&gt;</code> document when testing.</p>
+  </main>
 </body>
 </html>`;
 
-    function updatePreview() {
-      const code = htmlInput.value || defaultHTML;
-      previewFrame.srcdoc = code;
-      statusText.textContent = "Last updated: " + new Date().toLocaleTimeString();
+    function updateStatus(message) {
+      statusText.textContent = message;
+      const now = new Date();
+      timeStamp.textContent = now.toLocaleTimeString();
     }
 
-    // Initialize with sample HTML
+    function updatePreview() {
+      const code = htmlInput.value.trim() || defaultHTML;
+      previewFrame.srcdoc = code;
+      updateStatus("Preview updated");
+      previewContainer.scrollTop = 0;
+    }
+
+    // initialize
     htmlInput.value = defaultHTML;
     updatePreview();
 
@@ -306,36 +585,24 @@
       if (e.ctrlKey && e.key === "Enter") {
         e.preventDefault();
         updatePreview();
-        // Scroll to preview when you run it
         previewContainer.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     });
 
-    function isFullscreen() {
-      return document.fullscreenElement === previewContainer;
-    }
-
-    function updateFullscreenButton() {
-      if (isFullscreen()) {
-        fullscreenButton.textContent = "⤢ Exit fullscreen";
-      } else {
-        fullscreenButton.textContent = "⤢ Fullscreen";
-      }
-    }
-
     fullscreenButton.addEventListener("click", () => {
-      if (!isFullscreen()) {
-        if (previewContainer.requestFullscreen) {
-          previewContainer.requestFullscreen();
-        }
+      if (!document.fullscreenElement) {
+        if (previewContainer.requestFullscreen) previewContainer.requestFullscreen();
       } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
+        if (document.exitFullscreen) document.exitFullscreen();
       }
     });
 
-    document.addEventListener("fullscreenchange", updateFullscreenButton);
+    document.addEventListener("fullscreenchange", () => {
+      const active = Boolean(document.fullscreenElement);
+      fullscreenButton.innerHTML = active
+        ? '<span class="icon">⤢</span> Exit fullscreen'
+        : '<span class="icon">⤢</span> Fullscreen';
+    });
   </script>
 </body>
 </html>
