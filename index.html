@@ -16,15 +16,12 @@
       --text-muted: #9ca3af;
       --accent: #fbbf24;
       --accent-soft: rgba(251, 191, 36, 0.14);
-      --danger: #f97373;
       --radius-md: 10px;
       --radius-lg: 14px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.75);
+      --error: #ef4444;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -40,14 +37,14 @@
       padding: 0 18px 32px;
     }
 
-    /* HEADER / HERO */
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(20px);
-      background: linear-gradient(to bottom, rgba(5, 8, 22, 0.96), rgba(5,8,22,0.92));
-      border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+      background: linear-gradient(to bottom, rgba(5,8,22,0.96), rgba(5,8,22,0.92));
+      border-bottom: 1px solid rgba(15,23,42,0.85);
     }
 
     .header-inner {
@@ -60,17 +57,9 @@
       gap: 16px;
     }
 
-    .brand-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .brand-group { display: flex; flex-direction: column; gap: 4px; }
 
-    .brand-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .brand-row { display: flex; align-items: center; gap: 8px; }
 
     .brand-mark {
       width: 22px;
@@ -126,20 +115,18 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
         "Liberation Mono", "Courier New", monospace;
       font-size: 0.78rem;
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15,23,42,0.9);
       padding: 2px 6px;
       border-radius: 999px;
       border: 1px solid rgba(30,64,175,0.6);
     }
 
     /* LAYOUT */
-    main {
-      margin-top: 20px;
-    }
+    main { margin-top: 20px; }
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1.1fr);
       gap: 18px;
       align-items: flex-start;
     }
@@ -160,11 +147,7 @@
       margin-bottom: 8px;
     }
 
-    .panel-title {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
+    .panel-title { display: flex; flex-direction: column; gap: 3px; }
 
     .panel-title-label {
       font-size: 0.78rem;
@@ -179,16 +162,10 @@
       color: var(--text-muted);
     }
 
-    .panel-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
     /* BUTTONS */
     button {
       border-radius: 999px;
-      border: 1px solid var(--border-strong);
+      border: 1px solid #1f2937;
       padding: 5px 14px;
       font-size: 0.8rem;
       background: #020617;
@@ -202,65 +179,99 @@
       white-space: nowrap;
     }
 
-    button span.icon {
-      font-size: 0.78rem;
-      opacity: 0.9;
-    }
+    button span.icon { font-size: 0.78rem; opacity: 0.9; }
 
     button.primary {
       background: linear-gradient(to right, #fbbf24, #f97316);
       color: #0b1020;
-      border-color: rgba(252, 211, 77, 0.6);
+      border-color: rgba(252,211,77,0.6);
       font-weight: 550;
-      box-shadow: 0 14px 30px rgba(248, 181, 47, 0.45);
+      box-shadow: 0 14px 30px rgba(248,181,47,0.45);
     }
 
     button.primary:hover {
-      box-shadow: 0 18px 40px rgba(248, 181, 47, 0.6);
+      box-shadow: 0 18px 40px rgba(248,181,47,0.6);
       transform: translateY(-1px);
     }
 
     button.primary:active {
       transform: translateY(1px);
-      box-shadow: 0 10px 18px rgba(248, 181, 47, 0.5);
+      box-shadow: 0 10px 18px rgba(248,181,47,0.5);
     }
 
-    button.secondary {
-      background: rgba(15,23,42,0.96);
-    }
+    button.secondary { background: rgba(15,23,42,0.96); }
 
     button.secondary:hover {
       background: #020617;
       border-color: #4b5563;
     }
 
+    button.small { padding: 3px 10px; font-size: 0.75rem; }
+
     button:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
 
-    /* TEXTAREA / EDITOR */
+    /* EDITOR W/ LINE NUMBERS */
+    .editor-wrapper { margin-top: 10px; }
+
+    .editor-shell {
+      display: flex;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: #020617;
+      overflow: hidden;
+      max-height: 58vh;
+    }
+
+    .line-numbers {
+      padding: 10px 6px 10px 8px;
+      width: 3.4rem;
+      text-align: right;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #4b5563;
+      background: #020617;
+      border-right: 1px solid #111827;
+      user-select: none;
+      overflow: hidden;
+      max-height: 58vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .ln {
+      padding-right: 2px;
+      height: 1.5em;
+      display: flex;
+      align-items: center;
+    }
+
+    .ln-error {
+      color: #fecaca;
+      background: rgba(239,68,68,0.12);
+      border-right: 2px solid var(--error);
+    }
+
     textarea {
       width: 100%;
       min-height: 280px;
       max-height: 58vh;
-      margin-top: 10px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      padding: 11px 12px;
+      border: none;
+      padding: 10px 12px;
       font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
         Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 0.84rem;
       line-height: 1.5;
-      background: #020617;
+      background: transparent;
       color: var(--text-primary);
       resize: vertical;
-    }
-
-    textarea:focus-visible {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px var(--accent-soft);
       outline: none;
+      overflow: auto;
     }
 
     .editor-footer {
@@ -273,6 +284,14 @@
       gap: 8px;
     }
 
+    .editor-footer-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .kbd {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
         "Liberation Mono", "Courier New", monospace;
@@ -282,6 +301,58 @@
       border: 1px solid #111827;
       background: #020617;
       color: #e5e7eb;
+    }
+
+    /* Toggle */
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toggle-slider {
+      width: 28px;
+      height: 16px;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid #4b5563;
+      position: relative;
+      transition: background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .toggle-slider::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #9ca3af;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .toggle input:checked + .toggle-slider {
+      background: rgba(251,191,36,0.18);
+      border-color: #fbbf24;
+    }
+
+    .toggle input:checked + .toggle-slider::after {
+      transform: translateX(9px);
+      background: #facc15;
+    }
+
+    .toggle-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
     }
 
     /* PREVIEW */
@@ -319,15 +390,6 @@
       display: block;
     }
 
-    .preview-toolbar {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      display: flex;
-      gap: 6px;
-      z-index: 5;
-    }
-
     .preview-status-bar {
       position: absolute;
       left: 0;
@@ -339,16 +401,11 @@
       padding: 6px 11px;
       font-size: 0.75rem;
       color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.98);
+      background: rgba(15,23,42,0.98);
       border-top: 1px solid #020617;
     }
 
-    .status-left,
-    .status-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .status-left { display: flex; align-items: center; gap: 8px; }
 
     .status-pill {
       display: inline-flex;
@@ -367,25 +424,16 @@
       background: #22c55e;
     }
 
-    .status-text-strong {
-      color: #d1d5db;
-    }
+    .status-text-strong { color: #d1d5db; }
 
-    .timestamp {
-      font-variant-numeric: tabular-nums;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid #111827;
-      background: #020617;
+    .status-right {
+      font-size: 0.75rem;
+      color: #9ca3af;
     }
 
     @media (max-width: 960px) {
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .panel {
-        box-shadow: 0 14px 30px rgba(15,23,42,0.6);
-      }
+      .layout { grid-template-columns: minmax(0,1fr); }
+      .panel { box-shadow: 0 14px 30px rgba(15,23,42,0.6); }
     }
 
     @media (max-width: 640px) {
@@ -394,15 +442,9 @@
         align-items: flex-start;
         padding-inline: 16px;
       }
-      .header-meta {
-        align-items: flex-start;
-      }
-      .page-shell {
-        padding-inline: 14px;
-      }
-      .preview-frame-wrapper {
-        height: 60vh;
-      }
+      .header-meta { align-items: flex-start; }
+      .page-shell { padding-inline: 14px; }
+      .preview-frame-wrapper { height: 60vh; }
     }
   </style>
 </head>
@@ -445,13 +487,28 @@
             </button>
           </div>
 
-          <textarea id="htmlInput" spellcheck="false"></textarea>
+          <div class="editor-wrapper">
+            <div class="editor-shell">
+              <div class="line-numbers" id="lineNumbers"></div>
+              <textarea id="htmlInput" spellcheck="false"></textarea>
+            </div>
+          </div>
 
           <div class="editor-footer">
             <span>
               Keyboard: <span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> to run
             </span>
-            <span style="opacity: 0.85;">Sandbox: <span class="kbd">allow-scripts</span>, <span class="kbd">allow-same-origin</span></span>
+            <div class="editor-footer-right">
+              <label class="toggle">
+                <input type="checkbox" id="autoUpdateToggle" />
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Auto update</span>
+              </label>
+
+              <button id="resetButton" type="button" class="secondary small">
+                Reset sample
+              </button>
+            </div>
           </div>
         </section>
 
@@ -471,10 +528,6 @@
           </div>
 
           <div class="preview-frame-wrapper" id="previewContainer">
-            <div class="preview-toolbar">
-              <!-- Future toolbar actions could go here -->
-            </div>
-
             <iframe
               id="previewFrame"
               sandbox="allow-scripts allow-same-origin"
@@ -487,8 +540,8 @@
                   <span class="status-text-strong" id="statusText">Ready</span>
                 </div>
               </div>
-              <div class="status-right">
-                <span class="timestamp" id="timeStamp">—</span>
+              <div class="status-right" id="statusDetail">
+                RenderBox · HTML document preview
               </div>
             </div>
           </div>
@@ -499,12 +552,17 @@
 
   <script>
     const htmlInput = document.getElementById("htmlInput");
+    const lineNumbers = document.getElementById("lineNumbers");
     const previewFrame = document.getElementById("previewFrame");
     const runButton = document.getElementById("runButton");
     const statusText = document.getElementById("statusText");
-    const timeStamp = document.getElementById("timeStamp");
+    const statusDetail = document.getElementById("statusDetail");
     const previewContainer = document.getElementById("previewContainer");
     const fullscreenButton = document.getElementById("fullscreenButton");
+    const autoUpdateToggle = document.getElementById("autoUpdateToggle");
+    const resetButton = document.getElementById("resetButton");
+
+    const STORAGE_KEY = "renderbox-html-source";
 
     const defaultHTML = `<!DOCTYPE html>
 <html lang="en">
@@ -562,22 +620,121 @@
 </body>
 </html>`;
 
-    function updateStatus(message) {
+    let autoUpdate = false;
+    let updateTimer = null;
+    let lastErrorLine = null;
+
+    function saveCurrentSource() {
+      try {
+        localStorage.setItem(STORAGE_KEY, htmlInput.value);
+      } catch (e) {}
+    }
+
+    function loadSavedSource() {
+      try {
+        return localStorage.getItem(STORAGE_KEY);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function updateStatus(message, detail) {
       statusText.textContent = message;
-      const now = new Date();
-      timeStamp.textContent = now.toLocaleTimeString();
+      if (detail) {
+        statusDetail.textContent = detail;
+      } else {
+        statusDetail.textContent = "RenderBox · HTML document preview";
+      }
+    }
+
+    function instrumentHTMLForErrors(source) {
+      const errorHandler = `
+<script>
+window.addEventListener('error', function(e) {
+  try {
+    parent.postMessage({
+      type: 'renderbox-error',
+      lineno: e.lineno || null,
+      colno: e.colno || null,
+      message: e.message || 'Error'
+    }, '*');
+  } catch (err) {}
+});
+window.addEventListener('unhandledrejection', function(e) {
+  try {
+    const reason = e.reason || {};
+    var msg = (reason && reason.message) ? reason.message : String(reason);
+    var line = reason && reason.lineno ? reason.lineno : null;
+    var col = reason && reason.colno ? reason.colno : null;
+    parent.postMessage({
+      type: 'renderbox-error',
+      lineno: line,
+      colno: col,
+      message: msg || 'Unhandled promise rejection'
+    }, '*');
+  } catch (err) {}
+});
+<\/script>`;
+
+      let injected = source;
+      if (source.includes("</body>")) {
+        injected = source.replace("</body>", errorHandler + "\n</body>");
+      } else if (source.includes("</html>")) {
+        injected = source.replace("</html>", errorHandler + "\n</html>");
+      } else {
+        injected = source + errorHandler;
+      }
+      return injected;
     }
 
     function updatePreview() {
-      const code = htmlInput.value.trim() || defaultHTML;
+      const raw = htmlInput.value.trim() || defaultHTML;
+      const code = instrumentHTMLForErrors(raw);
+
+      // clear previous error highlight
+      lastErrorLine = null;
+      updateLineNumbers();
+
       previewFrame.srcdoc = code;
       updateStatus("Preview updated");
       previewContainer.scrollTop = 0;
+      saveCurrentSource();
     }
 
-    // initialize
-    htmlInput.value = defaultHTML;
+    function updateLineNumbers() {
+      const value = htmlInput.value;
+      const lines = value.split(/\r\n|\r|\n/).length || 1;
+      let out = "";
+      for (let i = 1; i <= lines; i++) {
+        const errClass = lastErrorLine === i ? "ln ln-error" : "ln";
+        out += `<div class="${errClass}" data-line="${i}">${i}</div>`;
+      }
+      lineNumbers.innerHTML = out;
+      lineNumbers.scrollTop = htmlInput.scrollTop;
+    }
+
+    function scheduleAutoUpdate() {
+      if (!autoUpdate) return;
+      if (updateTimer) clearTimeout(updateTimer);
+      updateTimer = setTimeout(updatePreview, 400);
+    }
+
+    // Initialize content
+    const saved = loadSavedSource();
+    htmlInput.value = saved || defaultHTML;
+    updateLineNumbers();
     updatePreview();
+
+    // Events
+    htmlInput.addEventListener("input", () => {
+      updateLineNumbers();
+      saveCurrentSource();
+      scheduleAutoUpdate();
+    });
+
+    htmlInput.addEventListener("scroll", () => {
+      lineNumbers.scrollTop = htmlInput.scrollTop;
+    });
 
     runButton.addEventListener("click", updatePreview);
 
@@ -587,6 +744,20 @@
         updatePreview();
         previewContainer.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+    });
+
+    autoUpdateToggle.addEventListener("change", () => {
+      autoUpdate = autoUpdateToggle.checked;
+      if (autoUpdate) {
+        scheduleAutoUpdate();
+      }
+    });
+
+    resetButton.addEventListener("click", () => {
+      htmlInput.value = defaultHTML;
+      lastErrorLine = null;
+      updateLineNumbers();
+      updatePreview();
     });
 
     fullscreenButton.addEventListener("click", () => {
@@ -602,6 +773,24 @@
       fullscreenButton.innerHTML = active
         ? '<span class="icon">⤢</span> Exit fullscreen'
         : '<span class="icon">⤢</span> Fullscreen';
+    });
+
+    // Receive errors from iframe
+    window.addEventListener("message", (event) => {
+      const data = event.data;
+      if (!data || data.type !== "renderbox-error") return;
+
+      const { lineno, colno, message } = data;
+      if (typeof lineno === "number" && lineno > 0) {
+        lastErrorLine = lineno;
+        updateLineNumbers();
+        updateStatus("Error detected", `Line ${lineno}${colno ? ", Col " + colno : ""}: ${message}`);
+      } else {
+        // No line number, just show message
+        lastErrorLine = null;
+        updateLineNumbers();
+        updateStatus("Error detected", message || "Runtime error");
+      }
     });
   </script>
 </body>
