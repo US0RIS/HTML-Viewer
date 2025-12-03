@@ -1,4 +1,4 @@
-swxx<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -468,6 +468,10 @@ swxx<!DOCTYPE html>
             <span>Live HTML Preview</span>
           </div>
           <span>Update with <code>Ctrl+Enter</code> · Fullscreen frame supported</span>
+          <!-- Visitor counter pill -->
+          <div id="visitorCount" class="pill" style="border-color:#111827;background:rgba(15,23,42,0.9);">
+            <span>Visits: —</span>
+          </div>
         </div>
       </div>
     </header>
@@ -792,6 +796,26 @@ window.addEventListener('unhandledrejection', function(e) {
         updateStatus("Error detected", message || "Runtime error");
       }
     });
+
+    // Simple visit counter using CountAPI
+    (function () {
+      const VISITOR_NAMESPACE = "renderbox-us0ris-viewer"; // change if you want a different ID
+      const url = "https://api.countapi.xyz/hit/" + encodeURIComponent(VISITOR_NAMESPACE) + "/visits";
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const el = document.getElementById("visitorCount");
+          if (el) {
+            el.textContent = "Visits: " + (data.value || 0).toLocaleString();
+          }
+          console.log("RenderBox visits:", data.value);
+        })
+        .catch(() => {
+          const el = document.getElementById("visitorCount");
+          if (el) el.textContent = "Visits: n/a";
+        });
+    })();
   </script>
 </body>
 </html>
